@@ -1,5 +1,19 @@
+import { readdir } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 const list = async () => {
-    // Write your code here 
+    const __dirname  = dirname(fileURLToPath(import.meta.url));
+    const dirPath  = join(__dirname, 'files');
+
+    try {
+        const files = await readdir(dirPath);
+        for (const file of files) {
+            console.log(file);
+        }
+    } catch {
+        throw new Error('FS operation failed');
+    }
 };
 
 await list();
